@@ -8,12 +8,12 @@ then
 	if [ -s "$NAMEF" ]
 	then
 		echo "$NAMEF file is not empty"
+		if [ -f "$NAMEF" ]
+		then
+			echo "$NAMEF file is a regular file"
+		fi
 	else
 		echo "$NAMEF file is empty"
-	fi
-	if [ -f "$NAMEF" ]
-	then
-		echo "$NAMEF file is a regular file"
 	fi
 else
 	echo "$NAMEF file does not exist"
