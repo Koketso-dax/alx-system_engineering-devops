@@ -8,7 +8,7 @@ do
 	while [ $m -le 58 ]
 	do
 		((m++))
-		echo $m
+		echo "$m"
 	done
 	((h++))
 done

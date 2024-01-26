@@ -2,5 +2,5 @@
 # This script will run ls cmd using for loop
 for x in *
 do
-	echo $x | cut -d '-' -f2
+	echo "$x" | cut -d '-' -f2
 done
