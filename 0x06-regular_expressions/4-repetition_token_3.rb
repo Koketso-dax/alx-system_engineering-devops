@@ -1,2 +1,7 @@
 #!/usr/bin/env ruby
-puts ARGV[0].scan(/hbt*n/).join
+regex = /hb{0,1}t+n/
+read = ARGV[0].scan(regex)
+for a in read do
+  print(a)
+end
+print("\n")

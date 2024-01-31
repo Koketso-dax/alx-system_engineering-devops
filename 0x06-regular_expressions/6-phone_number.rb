@@ -1,2 +1,7 @@
 #!/usr/bin/env ruby
-puts ARGV[0].scan(/^\d{10,10}$/).join
+regex = /^[0-9]{10}$/
+read = ARGV[0].scan(regex)
+for a in read do
+ print(a)
+end
+print("\n")

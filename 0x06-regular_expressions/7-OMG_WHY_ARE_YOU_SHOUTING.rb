@@ -1,2 +1,7 @@
 #!/usr/bin/env ruby
-puts ARGV[0].scan(/[A-Z]*/).join
+regex = /[A-Z]/
+read = ARGV[0].scan(regex)
+for a in read do
+    print(a)
+end
+print("\n")
