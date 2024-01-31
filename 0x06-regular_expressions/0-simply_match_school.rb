@@ -1,2 +1,5 @@
 #!/usr/bin/env ruby
-puts ARGV[0].scan(/School/).join
+read = ARGV[0].scan(/Holberton/)
+for a in read do
+puts(a)
+end
