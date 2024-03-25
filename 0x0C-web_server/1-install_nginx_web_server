@@ -14,17 +14,17 @@ server {
     root /var/www/html;
     index index.html;
 
-    server_name web-01;
+    server_name web-01 www.koketsodiale.tech;
 
     location / {
         try_files \$uri \$uri/ =404;
     }
 
     location = / {
-        echo "HTTP/1.1 200 OK";
-        echo "Content-Type: text/html";
-        echo "";
-        echo "Hello World!";
+        "HTTP/1.1 200 OK";
+        "Content-Type: text/html";
+        "";
+        "Hello World!";
     }
 }
 EOF
