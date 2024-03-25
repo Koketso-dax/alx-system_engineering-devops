@@ -1,1 +1,1 @@
-# Solutions to SSH
+# How to setup SSH for client

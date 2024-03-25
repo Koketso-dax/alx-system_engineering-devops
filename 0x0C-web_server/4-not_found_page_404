@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Script that configures a custom 404 page for Nginx
 # Configure custom 404 page
 if ! grep -q "error_page 404 /404.html;" /etc/nginx/sites-enabled/default; then
@@ -7,7 +6,7 @@ if ! grep -q "error_page 404 /404.html;" /etc/nginx/sites-enabled/default; then
     echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html >/dev/null
 
     # Update Nginx configuration to use the custom 404 page
-    sudo sed -i '/server_name _;/a \\n\terror_page 404 /404.html;' /etc/nginx/sites-enabled/default
+    sudo sed -i '/server_name web_01;/a \\n\terror_page 404 /404.html;' /etc/nginx/sites-enabled/default
 fi
 
 # Reload Nginx configuration
