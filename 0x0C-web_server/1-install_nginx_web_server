@@ -19,13 +19,6 @@ server {
     location / {
         try_files \$uri \$uri/ =404;
     }
-
-    location = / {
-        "HTTP/1.1 200 OK";
-        "Content-Type: text/html";
-        "";
-        "Hello World!";
-    }
 }
 EOF
 sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
