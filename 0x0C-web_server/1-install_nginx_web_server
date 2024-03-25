@@ -1,29 +1,23 @@
-#!/bin/bash
-
-# Update package index
-apt update
-
-# Install Nginx
-apt install nginx -y
-
-# Check if Nginx configuration directory exists
-if [ ! -d /etc/nginx/sites-available ]; then
-    mkdir -p /etc/nginx/sites-available
-fi
-
-# Create a new Nginx configuration file
-cat <<EOF >/etc/nginx/sites-available/web-01
+#!/usr/bin/env bash
+# Installs nginx server
+apt-get update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+rm /var/www/html/*
+echo "Hello World!" > /var/www/html/index.html
+sed -i '/^}/d' /etc/nginx/sites-available/default
+cat <<EOF >/etc/nginx/sites-available/default
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    
+    listen 80;
+    listen [::]:80;
+
     root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
+    index index.html;
 
     server_name _;
 
     location / {
-        try_files $uri $uri/ =404;
+        try_files \$uri \$uri/ =404;
     }
 
     location = / {
@@ -34,9 +28,6 @@ server {
     }
 }
 EOF
-
-# Create a symbolic link to enable the site
-ln -s /etc/nginx/sites-available/web-01 /etc/nginx/sites-enabled/
-
-# Reload Nginx configuration without using systemctl
-pkill -USR2 nginx
+sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+nginx -s reload
