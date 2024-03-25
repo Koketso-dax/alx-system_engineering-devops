@@ -1,5 +1,5 @@
-exec { 'kill_killmenow_process':
-  command  => 'pkill -f killmenow',
-  onlyif   => 'pgrep -f killmenow',
-  provider => 'shell',
+# Executes a bash command
+exec { 'kill':
+  command => 'pkill -f killmenow',
+  path    => ['/usr/bin', '/usr/sbin']
 }
