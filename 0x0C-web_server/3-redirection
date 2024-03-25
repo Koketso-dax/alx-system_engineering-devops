@@ -1,36 +1,12 @@
 #!/usr/bin/env bash
+# Script that configures a new Ubuntu machine to respect above requirements
 
-# Modify the default server block configuration for redirection
-sed -i '/^}/d' /etc/nginx/sites-available/default
-cat <<EOF >/etc/nginx/sites-available/default
-server {
-    listen 80;
-    listen [::]:80;
+sudo apt-get update
+sudo apt-get install -y nginx
 
-    root /var/www/html;
-    index index.html;
-
-    server_name _;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-
-    location = / {
-        echo "HTTP/1.1 200 OK";
-        echo "Content-Type: text/html";
-        echo "";
-        echo "Hello World!";
-    }
-
-    location /redirect_me {
-        return 301 http://example.com/redirected_page;
-    }
-}
-EOF
-
-# Ensure Nginx listens on port 80
-sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+echo "Hello World!" | sudo tee /var/www/html/index.html
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.koketsodev.tech permanent;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
 # Reload Nginx configuration
 nginx -s reload
