@@ -14,10 +14,15 @@ server {
     root /var/www/html;
     index index.html;
 
-    server_name _ www.koketsodiale.tech;
+    server_name _;
 
     location / {
         try_files \$uri \$uri/ =404;
+    }
+
+    location / {
+        default_type text/html;
+        return 200 "Hello World!";
     }
 }
 EOF
