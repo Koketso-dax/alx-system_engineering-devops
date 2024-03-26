@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Configure redirection
-if ! grep -q "/redirect_me" /etc/nginx/sites-enabled/default; then
-    sudo sed -i '/server_name _;/a \\n\tlocation /redirect_me {\n\t\treturn 301 https://www.koketsodev.tech;\n\t}' /etc/nginx/sites-enabled/default
-fi
+sudo apt-get update -y
+sudo apt-get install -y nginx
 
-# Reload Nginx configuration
-sudo nginx -s reload
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sudo sed -i "/listen 80 default_server;/a rewrite ^/redirect_me https://koketsodev.tech permanent;" /etc/nginx/sites-enabled/default
+
+sudo service nginx restart
