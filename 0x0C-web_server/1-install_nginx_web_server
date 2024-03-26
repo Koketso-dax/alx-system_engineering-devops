@@ -21,7 +21,8 @@ server {
     }
 
     location / {
-        default_type text/html;
+        Content-Type text/html;
+        Content-Length 13;
         return 200 "Hello World!";
     }
 }
