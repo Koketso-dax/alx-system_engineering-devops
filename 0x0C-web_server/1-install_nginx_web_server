@@ -29,4 +29,4 @@ server {
 EOF
 sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-nginx -s reload
+sudo killall -s HUP nginx
