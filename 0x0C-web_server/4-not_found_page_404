@@ -1,28 +1,39 @@
 #!/usr/bin/env bash
 # Script that configures a custom 404 page for Nginx
 # Configure custom 404 page
-apt-get update
-apt-get install -y nginx
-service nginx start
-mkdir /etc/nginx/html
-echo "Hello World!" > /etc/nginx/html/index.html
-echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
-echo "server {
-    listen 80;
-    listen [::]:80 default_server;
-    root   /etc/nginx/html;
-    index  index.html;
+sudo apt-get update
+sudo apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+chmod -R 755 /var/www
+echo 'Hello World' > /var/www/html/index.html
 
-    location /redirect_me {
-        return 301 https://koketsodev.tech;
-    }
+new_config=\
+"server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+               root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+        server_name _;
+        location / {
+                try_files \$uri \$uri/ =404;
+        }
+        error_page 404 /404.html;
+        location  /404.html {
+            internal;
+        }
 
-    error_page 404 /404.html;
+        if (\$request_filename ~ redirect_me){
+            rewrite ^ https://www.youtube.com/@tpauldike permanent;
+        }
+}
+"
+echo "Ceci n'est pas une page" > /var/www/html/404.html
 
-    location = /404.html {
-        root /etc/nginx/html;
-        internal;
-    }
-}" > /etc/nginx/sites-available/default
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-service nginx restart
+echo "$new_config" > /etc/nginx/sites-available/default
+
+if [ "$(pgrep nginx)" -le 0 ];
+then
+    service nginx start
+else
+    service nginx restart
+fi;
