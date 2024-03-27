@@ -51,6 +51,6 @@ server {
     }
 }
 EOF
-
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 # Restart Nginx to apply the changes
 sudo service nginx restart
