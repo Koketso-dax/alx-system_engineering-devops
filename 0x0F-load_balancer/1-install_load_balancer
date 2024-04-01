@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Install and configure load balancer !
+
+# Disable firewall on port 80
+sudo ufw allow 80
+
 # Install HAProxy
 sudo apt-get update
 sudo apt-get install -y haproxy
@@ -17,12 +20,8 @@ backend http_back
     server web-02 54.227.197.16:80 check
 EOF
 
-# enable haproxy to be started by init script
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+# Enable HAProxy init script
+sudo update-rc.d haproxy defaults
 
-# Enable and start HAProxy service
-sudo systemctl enable haproxy
-
-# Disable firewall and start service
-sudo ufw allow 80/tcp
-sudo systemctl restart haproxy
+# Start HAProxy service
+sudo service haproxy start
