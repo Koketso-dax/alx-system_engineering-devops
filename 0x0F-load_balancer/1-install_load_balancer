@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# Install HAProxy
+sudo apt-get update
+sudo apt-get install -y haproxy
+
+# Retrieve the IP addresses of web-01 and web-02
+web01_ip="54.167.181.61"
+web02_ip="54.227.197.16"
+
+# Configure HAProxy
+sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << EOF
+global
+    log /dev/log    local0
+    log /dev/log    local1 notice
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+
+frontend http_front
+    bind *:80
+    stats uri /haproxy?stats
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server web01 $web01_ip:80 check
+    server web02 $web02_ip:80 check
+EOF
+
+# Restart HAProxy service
+sudo service haproxy restart
