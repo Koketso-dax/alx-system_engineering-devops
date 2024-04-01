@@ -11,14 +11,6 @@ sudo ufw allow 'Nginx HTTP'
 sudo mkdir -p /var/www/html
 sudo chmod -R 755 /var/www
 
-# Create log dirs
-sudo mkdir -p /var/log/nginx
-sudo touch /var/log/nginx/error.log
-sudo touch /etc/nginx/nginx.conf
-
-sudo chown -R www-data:www-data /var/log/nginx
-sudo chmod -R 755 /var/log/nginx
-
 # Create index page
 echo 'Hello World!' | sudo tee /var/www/html/index.html
 
