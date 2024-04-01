@@ -8,6 +8,7 @@ sudo apt-get install -y haproxy
 sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << EOF
 frontend http_front
     bind *:80
+    mode http
     stats uri /haproxy?stats
     default_backend http_back
 
