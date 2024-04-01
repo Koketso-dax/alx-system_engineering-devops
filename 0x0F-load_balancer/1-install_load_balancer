@@ -10,11 +10,11 @@ sudo apt-get -y install haproxy
 # edit config file
 server_config=\
 "
-frontend  ehoneah-frontend
+frontend koketso-frontend
         bind *:80
         mode http
         default_backend ehoneah-backend
-backend ehoneah-backend
+backend koketso-backend
         balance roundrobin
         server 496737-web-01 54.167.181.61:80 check
         server 496737-web-02 54.227.197.16:80 check
