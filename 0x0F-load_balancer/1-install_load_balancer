@@ -19,4 +19,7 @@ EOF
 
 # Enable and start HAProxy service
 sudo systemctl enable haproxy
+
+# Disable firewall and start service
+sudo ufw allow 80/tcp
 sudo systemctl start haproxy
