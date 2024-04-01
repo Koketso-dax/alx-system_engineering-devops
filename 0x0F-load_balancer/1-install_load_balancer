@@ -18,7 +18,7 @@ backend http_back
 EOF
 
 # Add ENABLED=1 to /etc/default/haproxy
-echo "ENABLED=1" >> /etc/default/haproxy
+sudo echo "ENABLED=1" >> /etc/default/haproxy
 
 # Enable and start HAProxy service
 sudo systemctl enable haproxy
