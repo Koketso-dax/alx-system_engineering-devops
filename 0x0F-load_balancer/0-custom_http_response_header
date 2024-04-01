@@ -21,11 +21,11 @@ echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 nginx_config="/etc/nginx/sites-enabled/default"
 custom_header_config="add_header X-Served-By \$hostname;"
 redirect_config="rewrite ^/redirect_me https://www.koketsodev.tech permanent;"
-sudo sed -i "s/server_name _;/$custom_header_config\n\t$redirect_config\n\tserver_name _;/" "$nginx_config"
+sudo sed -i "s|server_name _|&\n\t$custom_header_config\n\t$redirect_config|" "$nginx_config"
 
 # Configure Nginx to handle 404 errors
 error_page_config="error_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}"
-sudo sed -i "s/listen 80 default_server;/$error_page_config\n\tlisten 80 default_server;/" "$nginx_config"
+sudo sed -i "s|listen 80 default_server;|$error_page_config\n\t&|" "$nginx_config"
 
 # Restart Nginx to apply changes
 sudo service nginx restart
