@@ -21,7 +21,7 @@ backend http_back
 EOF
 
 # Enable HAProxy init script
-sudo update-rc.d haproxy defaults
+sudo systemctl enable haproxy
 
 # Start HAProxy service
-sudo service haproxy start
+sudo systemctl start haproxy
