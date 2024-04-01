@@ -5,7 +5,7 @@ web02_ip="54.227.197.16"
 
 # Configure HAProxy
 sudo apt-get -y update
-apt-get -y install haproxy
+sudo apt-get -y install haproxy
 
 # edit config file
 server_config=\
