@@ -17,10 +17,8 @@ backend http_back
     server web-02 54.227.197.16:80 check
 EOF
 
-# Add ENABLED=1 to /etc/default/haproxy if it doesn't exist
-if ! grep -qxF 'ENABLED=1' /etc/default/haproxy; then
-    echo "ENABLED=1" >> /etc/default/haproxy
-fi
+# Add ENABLED=1 to /etc/default/haproxy
+echo "ENABLED=1" >> /etc/default/haproxy
 
 # Enable and start HAProxy service
 sudo systemctl enable haproxy
