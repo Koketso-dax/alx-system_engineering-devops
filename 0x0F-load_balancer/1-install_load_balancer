@@ -19,7 +19,7 @@ EOF
 
 # Add ENABLED=1 to /etc/default/haproxy if it doesn't exist
 if ! grep -qxF 'ENABLED=1' /etc/default/haproxy; then
-    echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+    echo "ENABLED=1" >> /etc/default/haproxy
 fi
 
 # Enable and start HAProxy service
