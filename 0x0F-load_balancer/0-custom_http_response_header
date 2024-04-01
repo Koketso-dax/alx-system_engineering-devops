@@ -9,7 +9,7 @@ sudo ufw allow 'Nginx HTTP'
 
 # Create directory for web content and set permissions
 sudo mkdir -p /var/www/html
-sudo chmod -R 755 /var/www
+sudo chmod -R 755 /var/www/html
 
 # Create index page
 echo 'Hello World!' | sudo tee /var/www/html/index.html
@@ -18,15 +18,17 @@ echo 'Hello World!' | sudo tee /var/www/html/index.html
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
 # Configure Nginx to include custom header and redirect for /redirect_me page
-sudo mkdir /etc/nginx/sites-enabled/default
-nginx_config="/etc/nginx/sites-enabled/default"
+nginx_config="/etc/nginx/sites-available/default"
 custom_header_config="add_header X-Served-By \$hostname;"
 redirect_config="rewrite ^/redirect_me https://www.koketsodev.tech permanent;"
-sudo sed -i "s|server_name _|&\n\t$custom_header_config\n\t$redirect_config|" "$nginx_config"
+sudo sed -i "/server_name _;/a $custom_header_config\n\t$redirect_config" "$nginx_config"
 
 # Configure Nginx to handle 404 errors
 error_page_config="error_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}"
 sudo sed -i "s|listen 80 default_server;|$error_page_config\n\t&|" "$nginx_config"
+
+# Enable the default site
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Restart Nginx to apply changes
 sudo service nginx restart
