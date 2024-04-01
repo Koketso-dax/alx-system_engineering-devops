@@ -18,6 +18,7 @@ echo 'Hello World!' | sudo tee /var/www/html/index.html
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
 # Configure Nginx to include custom header and redirect for /redirect_me page
+sudo mkdir /etc/nginx/sites-enabled/default
 nginx_config="/etc/nginx/sites-enabled/default"
 custom_header_config="add_header X-Served-By \$hostname;"
 redirect_config="rewrite ^/redirect_me https://www.koketsodev.tech permanent;"
