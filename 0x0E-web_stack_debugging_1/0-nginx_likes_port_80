@@ -3,5 +3,19 @@
 # Delete the existing /sites-enabled/default and replaces it with a copy of
 # /sites-available/default. You do that by creating a symbolic link. 
 # The flag -s creates a symbolic link, -f deletes the existing file and replaces it
+
 sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo service nginx restart
+
+# Step 1: Check Nginx configuration and fix if necessary
+nginx_config="/etc/nginx/nginx.conf"
+if ! grep -q "listen 80;" "$nginx_config"; then
+    sudo sed -i '/^ *listen [0-9]*;/s//    listen 80;/' "$nginx_config"
+fi
+
+# Step 2: Check for conflicting services and stop them if found
+conflicting_service=$(sudo netstat -tuln | grep ":80 ")
+if [ -n "$conflicting_service" ]; then
+    sudo systemctl stop $(echo "$conflicting_service" | awk '{print $7}' | cut -d'/' -f1)
+fi
+
+sudo systemctl restart nginx
