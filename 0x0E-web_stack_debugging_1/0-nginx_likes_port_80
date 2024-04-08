@@ -8,6 +8,7 @@ sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 conflicting_service=$(sudo netstat -tuln | grep ":80 ")
 if [ -n "$conflicting_service" ]; then
+    # shellcheck disable=SC2046
     sudo systemctl stop $(echo "$conflicting_service" | awk '{print $7}' | cut -d'/' -f1)
 fi
 
