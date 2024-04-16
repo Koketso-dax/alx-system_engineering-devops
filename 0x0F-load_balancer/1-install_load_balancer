@@ -13,8 +13,8 @@ frontend http_front
 
 backend http_back
     balance roundrobin
-    server web-01 54.167.181.61:80 check
-    server web-02 54.227.197.16:80 check
+    server web-01 100.25.220.4:80 check
+    server web-02 100.26.254.212:80 check
 EOF
 
 # Add ENABLED=1 to /etc/default/haproxy
