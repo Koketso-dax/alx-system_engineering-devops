@@ -2,13 +2,5 @@
 # A Bash script that accepts one argument
 # The script run the 'whoami' command under the user passed as an argument
 
-if id "$1" &>/dev/null; then
-    # Check if the user has a home directory
-    if [ ! -d "/home/$1" ]; then
-        # Print the username
-        echo "$1"
-    else
-        # Run whoami under the specified user
-        sudo -u "$1" whoami
-    fi
-fi
+# Run whoami under the specified user
+sudo -u "$1" whoami
