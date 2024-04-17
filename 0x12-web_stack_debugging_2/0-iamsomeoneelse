@@ -3,7 +3,8 @@
 # The script run the 'whoami' command under the user passed as an argument
 
 # Check if an argument is provided
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <username>"
-    exit 1
+if id -u "$1" &>/dev/null && [ ! -d "/home/$1" ]; then
+    echo "$1"
+else
+    echo "$1"
 fi
