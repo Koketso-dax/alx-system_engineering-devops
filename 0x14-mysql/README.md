@@ -47,3 +47,15 @@ GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%';
 GRANT SELECT ON mysql.user TO 'holberton_user'@'localhost';
 
 FLUSH PRIVILEGES;
+
+
+#### Task 4:
+
+CHANGE MASTER TO
+MASTER_HOST = '100.25.220.4', -- Replace with the actual IP address of web-01
+MASTER_USER = 'replica_user',
+MASTER_PASSWORD = 'your_replica_user_password',
+MASTER_LOG_FILE = 'mysql-bin.000001', -- Use the value from web-01
+MASTER_LOG_POS = 154; -- Use the value from web-01
+START SLAVE;
+SHOW SLAVE STATUS\G

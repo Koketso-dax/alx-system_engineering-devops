@@ -47,5 +47,5 @@ frontend https_front
 
 backend ehoneah-backend
         balance roundrobin
-		server 496737-web-01 100.25.220.4:80 check
+		server 496737-web-01 67.202.10.12:80 check
         server 496737-web-02 100.26.254.212:80 check
