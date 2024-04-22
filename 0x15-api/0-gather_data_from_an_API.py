@@ -23,10 +23,10 @@ def get_employee_todo_progress(employee_id):
     num_completed_tasks = len(completed_tasks)
     total_num_tasks = len(todos_data)
 
-    print("Employee {} is done with tasks ({}/{total}):"
-          .format(employee_name, num_completed_tasks, total=total_num_tasks))
+    print("Employee {} is done with tasks ({}/{}):"
+          .format(employee_name, num_completed_tasks, total_num_tasks))
     for task in completed_tasks:
-        print("\t{}".format(task['title']))
+        print("\t {}".format(task['title']))
 
 
 if __name__ == "__main__":
