@@ -40,7 +40,7 @@ FLUSH PRIVILEGES;
 
 #### Task 3:
 
-CREATE USER 'replica_user'@'%' IDENTIFIED BY 'any_password';
+CREATE USER 'replica_user'@'%' IDENTIFIED BY 'password';
 
 GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%';
 
@@ -50,12 +50,12 @@ FLUSH PRIVILEGES;
 
 
 #### Task 4:
-
+STOP SLAVE;
 CHANGE MASTER TO
-MASTER_HOST = '100.25.220.4', -- Replace with the actual IP address of web-01
+MASTER_HOST = '67.202.10.12',
 MASTER_USER = 'replica_user',
-MASTER_PASSWORD = 'your_replica_user_password',
-MASTER_LOG_FILE = 'mysql-bin.000001', -- Use the value from web-01
-MASTER_LOG_POS = 154; -- Use the value from web-01
+MASTER_PASSWORD = 'password',
+MASTER_LOG_FILE = 'mysql-bin.000005',
+MASTER_LOG_POS = 154;
 START SLAVE;
 SHOW SLAVE STATUS\G
