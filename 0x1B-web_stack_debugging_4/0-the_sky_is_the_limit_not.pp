@@ -9,7 +9,7 @@ exec { 'fix--for-nginx':
 # Create the nginx.conf.erb template
 file { '/etc/puppetlabs/code/environments/production/modules/nginx/templates/nginx.conf.erb':
   ensure  => file,
-  content => '
+  content => "
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
@@ -38,14 +38,8 @@ http {
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
 }
-',
+",
   mode    => '0644',
-}
-
-# Update Nginx configuration
-file { '/etc/nginx/nginx.conf':
-  ensure  => file,
-  content => template('nginx/nginx.conf.erb'),
   notify  => Exec['nginx-restart'],
 }
 
