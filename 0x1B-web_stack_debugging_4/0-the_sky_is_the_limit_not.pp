@@ -45,6 +45,6 @@ http {
 
 # Restart Nginx
 exec { 'nginx-restart':
-  command => 'service nginx restart',
+  command => '/usr/sbin/service nginx restart',
   require => File['/etc/nginx/nginx.conf'],
 }
