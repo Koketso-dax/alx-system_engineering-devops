@@ -33,7 +33,7 @@ http {
     types_hash_max_size 2048;
 
     gzip on;
-    gzip_disable "msie6";
+    gzip_disable \"msie6\";
 
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
