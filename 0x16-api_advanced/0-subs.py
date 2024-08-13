@@ -19,15 +19,11 @@ def number_of_subscribers(subreddit):
     # Make the GET request with no redirects allowed
     url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
 
-    try:
-        r = requests.get(url, headers=user_agent,
+    r = requests.get(url, headers=user_agent,
                          allow_redirects=False)
+    if r.status_code == 404:
+        return 0
 
-        if r.status_code == 200:
+    else:
             subs = r.json().get("data", {}).get("subscribers", 0)
             return subs
-        else:
-            # Handle cases for status code errors
-            return 0
-    except requests.exceptions.RequestException:
-        return 0
