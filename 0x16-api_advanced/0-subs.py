@@ -17,9 +17,9 @@ def number_of_subscribers(subreddit):
     user_agent = {'User-Agent': '0x16-api_advanced:project/u/koketso-dax)'}
 
     # Make the GET request with no redirects allowed
-    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
 
-    r = requests.get(url, headers=user_agent, allow_redirects=True)
+    r = requests.get(url, headers=user_agent, allow_redirects=False)
     if r.status_code == 404:
         return 0
 
