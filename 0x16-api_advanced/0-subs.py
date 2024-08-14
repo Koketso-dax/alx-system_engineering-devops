@@ -20,4 +20,4 @@ def number_of_subscribers(subreddit):
         subs = r.json().get('data').get('subscribers')
         return subs
     else:
-        return 0
+        return 200
