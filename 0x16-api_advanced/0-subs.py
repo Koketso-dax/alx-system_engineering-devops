@@ -2,9 +2,7 @@
 """
 Contains the number_of_subscribers function
 """
-
 import requests
-import requests.exceptions
 
 
 def number_of_subscribers(subreddit):
@@ -17,7 +15,6 @@ def number_of_subscribers(subreddit):
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     r = requests.get(url, headers=user_agent, allow_redirects=False)
     if r.status_code == 200:
-        subs = r.json().get('data').get('subscribers')
-        return subs
+        return (r.json()["data"]["subscribers"])
     else:
-        return "OK"
+        return (0)
