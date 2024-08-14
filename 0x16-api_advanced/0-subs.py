@@ -14,7 +14,7 @@ def number_of_subscribers(subreddit):
                   (by /u/NearbyProposal7738)'}
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     r = requests.get(url, headers=user_agent, allow_redirects=False)
-    if r.status_code == 200:
-        return (r.json()["data"]["subscribers"])
-    else:
+
+    if r.status_code >= 300:
         return (0)
+    return (r.json()["data"]["subscribers"])
