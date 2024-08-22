@@ -6,8 +6,7 @@ exec { 'fix--for-nginx':
   path    => '/usr/local/bin/:/bin/'
 }
 
-# Create the nginx.conf.erb template
-file { '/etc/puppetlabs/code/environments/production/modules/nginx/templates/nginx.conf.erb':
+file { '/etc/nginx/nginx.conf':
   ensure  => file,
   content => "
 user www-data;
